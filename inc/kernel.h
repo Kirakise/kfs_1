@@ -18,7 +18,7 @@ typedef struct s_screen{
   uint16 vga_index;
   uint8 fore_color;
   uint8 back_color;
-  uint16 inp_buf;
+  uint16 inp_buf[256];
 }               t_screen;
 
 t_screen screens[3];

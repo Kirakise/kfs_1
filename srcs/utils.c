@@ -45,7 +45,6 @@ void itoa(int num, char *number)
 {
   int digits = digit_count(num);
   int index = digits - 1;
-  char x;
   if (num == 0 && digits == 1) {
     number[0] = '0';
     number[1] = 0;
@@ -73,4 +72,9 @@ void print_int(int num)
   char str_num[digit_count(num) + 1];
   itoa(num, str_num);
   print_string(str_num);
+}
+
+char get_ascii_char(uint16 keycode)
+{
+  return kbd_US[keycode];
 }

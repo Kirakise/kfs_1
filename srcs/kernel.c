@@ -54,6 +54,30 @@ void switch_to_screen(int screen_num){
   g_fore_color = screens[screen_num].fore_color;
 }
 
+void input()
+{
+  char ch;
+  char keycode;
+  do {
+    keycode = get_input_keycode();
+    if (keycode == KEY_ENTER)
+      print_next_line();
+    else{
+      if (keycode == KEY_F1)
+        switch_to_screen(0);
+      else if (keycode == KEY_F2)
+        switch_to_screen(1);
+      else if (keycode == KEY_F2)
+        switch_to_screen(2);
+      else {
+        ch = get_ascii_char(keycode);
+        if (ch)
+          print_char(ch);
+      }
+    }
+  } while (ch > 0);
+}
+
 void kernel_entry(void)
 {
   init_vga(WHITE, BLACK);
@@ -65,4 +89,6 @@ void kernel_entry(void)
   screens[0].back_color = WHITE;
   switch_to_screen(0);
   print_string("42");
+  while (1)
+    input();
 }
