@@ -1,5 +1,5 @@
 #pragma once
-
+#include "kernel.h"
 #define KEYBOARD_PORT 0x60
 //Коды кнопок
 #define KEY_A 0x1E
@@ -82,21 +82,26 @@
 #define KEY_UP 0x48
 
 //Цвета
-enum vga_color {
-  BLACK,
-  BLUE,
-  GREEN,
-  CYAN,
-  RED,
-  MAGNETA,
-  BROWN,
-  GREY,
-  DARK_GREY,
-  BRIGHT_BLUE,
-  BRIGHT_GREEN,
-  BRIGHT_CYAN,
-  BRIGHT_RED,
-  BRIGHT_MAGNETA,
-  YELLOW,
-  WHITE,
-};
+#define BLACK 0
+#define BLUE 1
+#define GREEN 2
+#define CYAN 3
+#define RED 4
+#define MAGNETA 5
+#define BROWN 6
+#define GREY 7
+#define DARK_GREY 8
+#define BRIGHT_BLUE 9
+#define BRIGHT_GREEN 10
+#define BRIGHT_CYAN 11
+#define BRIGHT_RED 12
+#define BRIGHT_MAGNETA 13
+#define YELLOW 14
+#define WHITE 15
+
+
+uint8 inb(uint16 port);
+void outb(uint16 port, uint8 data);
+char get_input_keycode(void);
+
+

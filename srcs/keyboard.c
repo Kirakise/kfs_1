@@ -1,7 +1,6 @@
 #include "../inc/kernel.h"
 #include "../inc/keyboard.h"
 
-
 uint8 inb(uint16 port)
 { 
   uint8 ret;
@@ -38,4 +37,3 @@ void sleep(uint32 timer)
 {
   wait_for_io(timer);
 }
-

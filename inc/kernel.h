@@ -12,4 +12,22 @@ typedef unsigned long long uint64;
 
 uint16* vga_buffer;
 
+typedef struct s_screen{
+  uint16 screen_str[BUFSIZE];
+  uint32 next_line;
+  uint16 vga_index;
+  uint8 fore_color;
+  uint8 back_color;
+  uint16 inp_buf;
+}               t_screen;
+
+t_screen screens[3];
+uint8 curscreen = 4;
+
 #define NULL (void*)0
+
+uint16 vga_entry(uint8 ch, uint8 fore_color, uint8 back_color);
+void clear_vga_buffer(uint16 **buffer, uint8 fore_color, uint8 back_color);
+void init_vga(uint8 fore_color, uint8 back_color);
+void wait_for_io(uint32 timer);
+void sleep(uint32 timer);
