@@ -1,8 +1,7 @@
 #include "../inc/kernel.h"
 #include "../inc/utils.h"
-
 uint32 vga_index = 0;
-uint32 next_line_index = 1;
+uint32 next_line_index = 0;
 uint8 g_fore_color = WHITE, g_back_color = BLACK;
 
 uint16 *vga_buffer = (uint16 *)VGA_ADDRESS;
@@ -42,7 +41,9 @@ void init_vga(uint8 fore_color, uint8 back_color)
   {
     ptr = screens[i].screen_str;
     clear_vga_buffer(&ptr, screens[i].fore_color, screens[i].back_color);
-    screens[i].next_line = 1;
+    bzero(screens[i].inp_buf, 255);
+    screens[i].inp_ind = 0;
+    screens[i].next_line = 0;
     screens[i].vga_index = 0;
   }
 }
@@ -74,14 +75,21 @@ void input()
         switch_to_screen(curscreen == 0 ? 2 : curscreen - 1);
       else if (keycode == KEY_RIGHT)
         switch_to_screen(curscreen == 2 ? 0 : curscreen + 1);
-      else if (keycode == KEY_F2)
-        switch_to_screen(2);
+      else if (keycode == KEY_ENTER){
+        print_string(screens[curscreen].inp_buf); 
+        bzero(screens[curscreen].inp_buf, screens[curscreen].inp_ind);
+        screens[curscreen].inp_ind = 0;
+      }
+      else if (keycode == KEY_BACKSPACE)
+        vga_buffer[vga_index == 0 ? 0 : --vga_index] = g_back_color;
       else {
         ch = get_ascii_char(keycode);
-        if (ch)
+        if (ch){
           print_char(ch);
+          add_to_buf(ch);
+        }
       }
-      sleep(0x02FFFFFF / 3);
+      sleep(40000000);
     }
   } while (ch > 0);
 }

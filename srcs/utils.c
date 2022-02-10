@@ -4,7 +4,7 @@
 
 void print_next_line()
 {
-  if (next_line_index >= 55){
+  if (next_line_index >= 25){
     next_line_index = 0;
     clear_vga_buffer(&vga_buffer, g_fore_color, g_back_color);
   }
@@ -16,13 +16,20 @@ void print_char(char ch)
   vga_buffer[vga_index++] = vga_entry(ch, g_fore_color, g_back_color);
 }
 
+
+void bzero(void *buf, uint32 n)
+{
+  while(n - 1 < n)
+    ((char *)buf)[--n] = 0;
+}
+
 uint32 strlen(const char *str)
 {
   if (!str)
     return 0;
   uint32 len = 0;
   while (str[len])
-    len++;
+    ++len;
   return len;
 }
 
@@ -33,7 +40,7 @@ uint32 digit_count(int num)
     return 1;
   while (num > 0)
   {
-    count++;
+    ++count;
     num /= 10;
   }
   return count;
@@ -76,4 +83,12 @@ void print_int(int num)
 char get_ascii_char(uint16 keycode)
 {
   return kbd_US[keycode];
+}
+
+void add_to_buf(char c)
+{
+  if (screens[curscreen].inp_ind >= 255)
+    return;
+  screens[curscreen].inp_buf[screens[curscreen].inp_ind] = c;
+  screens[curscreen].inp_ind++;
 }
