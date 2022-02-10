@@ -89,8 +89,8 @@ void input()
           add_to_buf(ch);
         }
       }
-      sleep(40000000);
     }
+    sleep(40000000);
   } while (ch > 0);
 }
 
