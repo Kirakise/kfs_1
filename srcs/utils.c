@@ -8,8 +8,7 @@ void print_next_line()
     next_line_index = 0;
     clear_vga_buffer(&vga_buffer, g_fore_color, g_back_color);
   }
-  vga_index = 80*next_line_index;
-  next_line_index++;
+  vga_index = 80 * next_line_index++;
 }
 
 void print_char(char ch)

@@ -10,7 +10,7 @@ typedef unsigned long long uint64;
 #define VGA_ADDRESS 0xB8000
 #define BUFSIZE 2200
 
-uint16* vga_buffer;
+extern uint16* vga_buffer;
 
 typedef struct s_screen{
   uint16 screen_str[BUFSIZE];
@@ -21,8 +21,8 @@ typedef struct s_screen{
   uint16 inp_buf[256];
 }               t_screen;
 
-t_screen screens[3];
-uint8 curscreen = 4;
+extern t_screen screens[3];
+extern uint8 curscreen;
 
 #define NULL (void*)0
 
